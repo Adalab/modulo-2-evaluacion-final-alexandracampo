@@ -6,3 +6,40 @@
 @import 'layout/footer';
 @import 'pages/index';
  */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.main-section {
+  display: flex;
+
+  .container1 {
+    border-right: 2px solid black;
+
+    .card-drink {
+      display: flex;
+      justify-content: center;
+      padding: 2rem 2rem 2rem 2rem;
+
+      .img-drink {
+        width: 10rem;
+        height: 10rem;
+      }
+    }
+
+    /* #hidden {
+        display: flex;
+        justify-content: center;
+        padding: 2rem 2rem 2rem 2rem;
+        border: 3px solid green;
+        visibility: hidden;
+      } */
+  }
+}
+
+.container2 {
+  margin-left: 2rem;
+}

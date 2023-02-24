@@ -1,26 +1,25 @@
 'use strict';
 
 // VARIABLES:
-const inputElement = document.querySelector('.js-input');
+const inputSearch = document.querySelector('.js-input');
 const btnSearch = document.querySelector('.js-search-btn');
 const listResults = document.querySelector('.js-list');
 const listResultsFavs = document.querySelector('.js-list-favs');
-
-const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita';
 
 let dataList = [];
 let dataListFavs = [];
 
 // Traer de la API la info de los cócteles por default:
-fetch(url)
+fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita')
     .then((response) => response.json())
     .then((data) => {
         dataList = data.drinks;
         renderList(dataList);
     })
 
-//funcion recorre el array datalList y lo pinta con cada "drink": 
+//funcion recorre el array datalList y los pinta con la función "renderEveryDrink": 
 function renderList(dataList) {
+    listResults.innerHTML = ' ';
     for (const drink of dataList) {
         listResults.innerHTML += renderEveryDrink(drink);
     }
@@ -28,13 +27,30 @@ function renderList(dataList) {
 
 // Función que pinta el código de cada cóctel (cada <li>):
 function renderEveryDrink(drink) {
-    let html = `<li> 
-    <article class="js-item-id" id=${drink.idDrink}">
+    let html = `<li class="js-card-drink card-drink" id="hidden"> 
+    <article id=${drink.idDrink}">
     <h3 class="js-item-name"> ${drink.strDrink} </h3>
-    <img src=${drink.strDrinkThumb} alt="Image de un cóctel">
+    <img class="js-img-drink img-drink" src=${drink.strDrinkThumb} alt="Image de un cóctel">
     </li>`;
     return html;
 }
+
+// Función para el evento click del buscador:
+function handleClick(ev) {
+    ev.preventDefault();
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputSearch.value}`;
+    fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+            dataList = data.drinks;
+            renderList(dataList);
+        })
+}
+
+btnSearch.addEventListener('click', handleClick);
+
+// FAVORITOS:
+
 
 
 
