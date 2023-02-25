@@ -1,4 +1,4 @@
-![Mojitos](https://pixabay.com/get/g9770b40a6b2db1fe4aa0d1df85563e12fd70591b22e0abd4b5b6a9aaa5adb672acfb315714ca0b1c2d21b43b5030c1ca5dc3743c92846f9fd6be313d4f612b1b15ffbb1839ac0359185280240e6fa379_640.jpg)
+![Mojitos](https://www.shutterstock.com/image-vector/cocktails-word-concept-flat-vector-260nw-1730830228.jpg)
 
 # Módulo 2: Ejercicio de evaluación final.
 
