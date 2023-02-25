@@ -16,8 +16,8 @@
 .main-section {
   display: flex;
 
-  .container1 {
-    border-right: 2px solid black;;
+  .container2 {
+    border-left: 2px solid black;;
 
     .card-drink {
       display: flex;
@@ -32,8 +32,9 @@
       }
     }
 
-    .select-item {
+    .fav-drink {
       border: 5px solid green;
+      color:darkgreen;
     }
 
     /* #hidden {
@@ -46,6 +47,19 @@
   }
 }
 
-.container2 {
-  margin-left: 2rem;
+.container1 {
+  margin-right: 2rem;
+
+  .card-drink {
+    display: flex;
+    justify-content: center;
+    width: 20rem;
+    height: 10rem;
+    
+
+    .img-drink {
+      width: 10rem;
+      height: 10rem;
+    }
+  }
 }

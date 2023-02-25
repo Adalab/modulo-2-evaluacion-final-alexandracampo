@@ -11,6 +11,7 @@ let dataList = [];
 let dataListFavs = [];
 
 // Traer de la API la info de los cócteles por default:
+
 fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita')
     .then((response) => response.json())
     .then((data) => {
@@ -18,30 +19,33 @@ fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita')
         renderList(dataList);
     })
 
+dataListFavs = JSON.parse(localStorage.getItem("favourites"));
+renderListFavs(dataListFavs);
+
 //funcion recorre el array dataList y pinta los cócteles con la función "buildDrink":
 function renderList(dataList) {
     listResults.innerHTML = '';
     for (const drink of dataList) {
         const drinkElement = buildDrinkLi(drink);
-        listResults.appendChild(drinkElement); // esto de hacerle un appendchild a listResults sigo sin verlo
+        listResults.appendChild(drinkElement);
     }
 }
 
 // Funcion para construir el <h3> que va dentro de <li>:
-function buildDrinkH3(drink) {
+function buildDrinkH3(drinkName) {
     const elementH3 = document.createElement('h3');
     elementH3.setAttribute('class', 'js-item-name');
-    const textH3 = document.createTextNode(drink.strDrink);
+    const textH3 = document.createTextNode(drinkName);
     elementH3.appendChild(textH3);
 
     return elementH3;
 }
 
 // Funcion para construir la <img> que va dentro de <li>:
-function buildDrinkImg(drink) {
+function buildDrinkImg(drinkImg) {
     const elementImg = document.createElement('img');
     elementImg.setAttribute('class', "js-img-drink img-drink");
-    elementImg.setAttribute('src', drink.strDrinkThumb);
+    elementImg.setAttribute('src', drinkImg);
     elementImg.setAttribute('alt', 'Imagen cóctel');
 
     return elementImg;
@@ -50,12 +54,12 @@ function buildDrinkImg(drink) {
 // Función que construye el código HTML de <li>:
 function buildDrinkLi(drink) {
     const elementLi = document.createElement('li');
-    elementLi.setAttribute('class', 'card-drink select-item');
+    elementLi.setAttribute('class', 'card-drink');
     elementLi.setAttribute('id', drink.idDrink);
 
     //meto en variables ambas llamadas a las funciones
-    const elementH3 = buildDrinkH3(drink);
-    const elementImg = buildDrinkImg(drink);
+    const elementH3 = buildDrinkH3(drink.strDrink);
+    const elementImg = buildDrinkImg(drink.strDrinkThumb);
 
     // Indico que ambas son child de <li>
     elementLi.appendChild(elementH3);
@@ -79,39 +83,49 @@ function handleClick(ev) {
         })
 }
 
-
 // FAVORITOS:
-/*
-1. evento click sobre coctel
-2. al hacer click
- -se activa class="select-item" css
- -se pinta en el listado de favoritos (nuevo array)
- -se almacena en localstorage
-*/
 
+//funcion recorre el array dataListFavs y pinta los cócteles con la función "buildDrink":
+function renderListFavs(dataListFavs) {
+    listResultsFavs.innerHTML = '';
+    for (const drinkFav of dataListFavs) {
+        const drinkElement = buildDrinkLi(drinkFav);
+        listResultsFavs.appendChild(drinkElement);
+    }
+    localStorage.setItem("favourites", JSON.stringify(dataListFavs));
+}
 // Función manejadora evento click sobre el cóctel favorito:
 function handleClickFav(ev) {
     ev.preventDefault();
-    console.log(ev.target);
-    console.log(ev.currentTarget);
+    //Se ha añadido el listener en la función buildDrinkLi, por eso sabemos que el currentTarget es el <li>:
+    const drinkCard = ev.currentTarget;
+    drinkCard.classList.toggle('fav-drink');
+
+    // Buscamos en la lista de bebidas aquella que coincida el id con el id de la card seleccionada:
+    const selectedDrinkData = dataList.find((drink) => drink.idDrink === drinkCard.id);
+    // Buscamos si ese mismo elemento existe ya en la lista de favoritos (indica el indice)
+    const indexFav = dataListFavs.findIndex((drink) => drink.idDrink === drinkCard.id);
+
+    if (indexFav === -1) { //no está en el listado de favoritos
+        //La guardo en el listado de favoritos: push
+        dataListFavs.push(selectedDrinkData);
+    } else { //si está en el listado de favoritos eliminarlo
+        //splice: elimina un elemento a partir de una posición
+        dataListFavs.splice(indexFav, 1);
+    }
+
+    renderListFavs(dataListFavs);
+
+    console.log(selectedDrinkData);
+    console.log(indexFav);
+    console.log(dataListFavs);
 }
-
-
 
 btnSearch.addEventListener('click', handleClick);
 
 
+/* 
+Cuando cargamos favoritos del localS no se marcan con el estilo de favoritos en el listado derecho
++ si lo selecciono para eliminarlo de favs, se marca en verde, que es lo opuesto a lo que debería pasar.
 
-
-
-
-
-
-
-
-
-/*  let html = `<li class="card-drink select-item" id=${drink.idDrink}">
-    <h3 class="js-item-name"> ${drink.strDrink} </h3>
-    <img class="js-img-drink img-drink" src=${drink.strDrinkThumb} alt="Imagen cóctel">
-    </li>`;
-    return html; */
+*/
