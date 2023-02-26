@@ -19,14 +19,23 @@ fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita')
         renderList(dataList);
     })
 
-dataListFavs = JSON.parse(localStorage.getItem("favourites"));
-renderListFavs(dataListFavs);
+const favStored = JSON.parse(localStorage.getItem("favourites"));
+if (favStored) { //si encuentra favoritos en LS
+    dataListFavs = favStored //Los asigna a la lista de favoritos
+    renderListFavs(dataListFavs);
+}
+
 
 //funcion recorre el array dataList y pinta los cócteles con la función "buildDrink":
 function renderList(dataList) {
     listResults.innerHTML = '';
     for (const drink of dataList) {
         const drinkElement = buildDrinkLi(drink);
+
+        const isFav = dataListFavs.some((fav) => fav.idDrink === drink.idDrink)
+        if (isFav) {
+            drinkElement.classList.add('fav-drink');
+        }
         listResults.appendChild(drinkElement);
     }
 }
@@ -41,7 +50,7 @@ function buildDrinkH3(drinkName) {
     return elementH3;
 }
 
-// Funcion para construir la <img> que va dentro de <li>:
+// Función para construir la <img> que va dentro de <li>:
 function buildDrinkImg(drinkImg) {
     const elementImg = document.createElement('img');
     elementImg.setAttribute('class', "js-img-drink img-drink");
@@ -90,11 +99,20 @@ function renderListFavs(dataListFavs) {
     listResultsFavs.innerHTML = '';
     for (const drinkFav of dataListFavs) {
         const drinkElement = buildDrinkLi(drinkFav);
+
+        /* const desSelectFav = dataList.some((coctel) => coctel.idDrink !== drinkFav.idDrink)
+        if (desSelectFav) {
+            drinkElement.classList.remove('fav-drink');
+        } */
+        // probar con otro método que no sea some??
+
         listResultsFavs.appendChild(drinkElement);
     }
+
     localStorage.setItem("favourites", JSON.stringify(dataListFavs));
 }
-// Función manejadora evento click sobre el cóctel favorito:
+
+// Función manejadora (evento click) sobre el cóctel seleccionado:
 function handleClickFav(ev) {
     ev.preventDefault();
     //Se ha añadido el listener en la función buildDrinkLi, por eso sabemos que el currentTarget es el <li>:
