@@ -90,7 +90,6 @@ function buildDrinkLi(drink) {
     return elementLi;
 }
 
-
 // Función para el evento click del buscador:
 function handleClickSearch(ev) {
     ev.preventDefault();
@@ -109,6 +108,19 @@ function renderListFavs(dataListFavs) {
     listResultsFavs.innerHTML = '';
     for (const drinkFav of dataListFavs) {
         const drinkElement = buildDrinkLi(drinkFav);
+
+        // Creamos el botón de eliminar cóctel favorito:
+        const deleteBtn = document.createElement('p');
+        deleteBtn.textContent = 'x';
+        deleteBtn.setAttribute('id', drinkFav.idDrink);
+        deleteBtn.setAttribute('class', 'btn-delete');
+
+        // Añadimos listener en la 'x' para que elimine el cóctel:
+        deleteBtn.addEventListener('click', handleClickDeleteFav)
+
+        // Lo añadimos a la card:
+        drinkElement.appendChild(deleteBtn);
+
         listResultsFavs.appendChild(drinkElement);
     }
 
@@ -136,17 +148,33 @@ function handleClickFav(ev) {
     }
 
     renderListFavs(dataListFavs);
-
-    console.log(selectedDrinkData);
-    console.log(indexFav);
-    console.log(dataListFavs);
 }
 
+// Función manejadora de botón reset:
 function handleClickReset(ev) {
+    ev.preventDefault();
     // Limpiar lista de datos de favoritos
     dataListFavs = [];
     // Limpiar LocalStorage
     localStorage.removeItem('favourites');
     // Limpiar <ul>
     listResultsFavs.innerHTML = '';
+}
+
+function handleClickDeleteFav(ev) {
+    ev.preventDefault();
+    // Borrar el cóctel de la lista de datos de favoritos
+    const deleteBtn = ev.currentTarget;
+    const indexFav = dataListFavs.findIndex((drink) => drink.idDrink === deleteBtn.id);
+    dataListFavs.splice(indexFav, 1);
+
+    // Actualizar localStorage
+    localStorage.setItem("favourites", JSON.stringify(dataListFavs));
+
+    // Borrar el <li> del cóctel que queremos eliminar
+    const drinkCardFav = deleteBtn.parentElement;
+    drinkCardFav.remove();
+
+    // Vuelvo a renderizar
+    renderList(dataList);
 }
