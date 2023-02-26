@@ -11,7 +11,6 @@ let dataList = [];
 let dataListFavs = [];
 
 // Traer de la API la info de los cócteles por default:
-
 fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita')
     .then((response) => response.json())
     .then((data) => {
@@ -25,17 +24,26 @@ if (favStored) { //si encuentra favoritos en LS
     renderListFavs(dataListFavs);
 }
 
+btnSearch.addEventListener('click', handleClickSearch);
+btnReset.addEventListener('click', handleClickReset)
 
-//funcion recorre el array dataList y pinta los cócteles con la función "buildDrink":
+//funcion recorre el array dataList y pinta los cócteles:
 function renderList(dataList) {
+    //vaciar lista de cócteles encontrados
     listResults.innerHTML = '';
+    // recorrer lista de datos de cócteles encontrados
     for (const drink of dataList) {
+        //construye la tarjeta del cóctel con sus datos
         const drinkElement = buildDrinkLi(drink);
 
+        // Añado un listener sobre la bebida que clicamos:
+        drinkElement.addEventListener('click', handleClickFav);
+        // miro si ya tengo los datos de esta bebida en mi lista de datos de bebidas favoritas. Y si la tengo, le añado la clase fav:
         const isFav = dataListFavs.some((fav) => fav.idDrink === drink.idDrink)
         if (isFav) {
             drinkElement.classList.add('fav-drink');
         }
+        // pinto el cóctel en el <ul>
         listResults.appendChild(drinkElement);
     }
 }
@@ -54,6 +62,11 @@ function buildDrinkH3(drinkName) {
 function buildDrinkImg(drinkImg) {
     const elementImg = document.createElement('img');
     elementImg.setAttribute('class', "js-img-drink img-drink");
+    // si el argumento que nos pasan está vacío lo llenamos con la url de un placeholder
+    if (!drinkImg) {
+        drinkImg = 'https://via.placeholder.com/300x300/ffffff/666666/?text=Cocktail'
+    }
+
     elementImg.setAttribute('src', drinkImg);
     elementImg.setAttribute('alt', 'Imagen cóctel');
 
@@ -74,14 +87,12 @@ function buildDrinkLi(drink) {
     elementLi.appendChild(elementH3);
     elementLi.appendChild(elementImg);
 
-    // Añado un listener sobre <li>:
-    elementLi.addEventListener('click', handleClickFav);
-
     return elementLi;
 }
 
+
 // Función para el evento click del buscador:
-function handleClick(ev) {
+function handleClickSearch(ev) {
     ev.preventDefault();
     const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputSearch.value}`;
     fetch(url)
@@ -93,19 +104,11 @@ function handleClick(ev) {
 }
 
 // FAVORITOS:
-
 //funcion recorre el array dataListFavs y pinta los cócteles con la función "buildDrink":
 function renderListFavs(dataListFavs) {
     listResultsFavs.innerHTML = '';
     for (const drinkFav of dataListFavs) {
         const drinkElement = buildDrinkLi(drinkFav);
-
-        /* const desSelectFav = dataList.some((coctel) => coctel.idDrink !== drinkFav.idDrink)
-        if (desSelectFav) {
-            drinkElement.classList.remove('fav-drink');
-        } */
-        // probar con otro método que no sea some??
-
         listResultsFavs.appendChild(drinkElement);
     }
 
@@ -139,11 +142,11 @@ function handleClickFav(ev) {
     console.log(dataListFavs);
 }
 
-btnSearch.addEventListener('click', handleClick);
-
-
-/* 
-Cuando cargamos favoritos del localS no se marcan con el estilo de favoritos en el listado derecho
-+ si lo selecciono para eliminarlo de favs, se marca en verde, que es lo opuesto a lo que debería pasar.
-
-*/
+function handleClickReset(ev) {
+    // Limpiar lista de datos de favoritos
+    dataListFavs = [];
+    // Limpiar LocalStorage
+    localStorage.removeItem('favourites');
+    // Limpiar <ul>
+    listResultsFavs.innerHTML = '';
+}

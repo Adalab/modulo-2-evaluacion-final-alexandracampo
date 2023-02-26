@@ -14,8 +14,13 @@
 }
 
 body {
-  background: linear-gradient(to bottom right, rgb(135, 218, 213), rgb(248, 244, 245));
-  height: 100vh;
+  //background-image: url(assets/images/rm222batch3-kul-18.jpg);
+  width: 100%;
+}
+
+.header {
+  font-family: 'Roboto', sans-serif;
+  align-items: center;
 }
 
 .main-section {
@@ -40,6 +45,7 @@ body {
     .fav-drink {
       border: 5px solid green;
       color:darkgreen;
+    
     }
 
     /* #hidden {
