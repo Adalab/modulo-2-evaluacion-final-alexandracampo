@@ -14,63 +14,173 @@
 }
 
 body {
-  //background-image: url(assets/images/rm222batch3-kul-18.jpg);
-  width: 100%;
+  background-color: rgb(153, 231, 201);
+  width: 100vw;
+  height: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .header {
-  font-family: 'Roboto', sans-serif;
+  display: flex;
+  justify-content: center;
+
+  .icon-header {
+    height: 3rem;
+    width: 3rem;
+    margin-top: 1.2rem;
+  }
+
+  .h1-header {
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    justify-content: center;
+    color: white;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.form {
+  display: flex;
+  justify-content: center;
   align-items: center;
+  flex-direction: column;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  color: rgb(255, 255, 255);
+
+  .label-input {
+    margin-bottom: 1rem;
+  }
+
+  .fieldset {
+    border: none;
+    margin-bottom: 2rem;
+
+    .input-text {
+      height: 1.5rem;
+      margin-bottom: 1rem;
+      margin-right: 2rem;
+      border-radius: 10px / 30px;
+      font-family: "Roboto", sans-serif;
+      font-weight: 600;
+      border: none;
+      padding-left: 0.5rem;
+      color: rgb(22, 165, 117);
+
+      &:focus {
+        outline: none;
+        caret-color: rgb(14, 148, 103);
+        padding-left: 0.5rem;
+      }
+
+      &::placeholder {
+        opacity: 0.4;
+        padding-left: 0.5rem;
+      }
+    }
+
+    .btn-search {
+      height: 1.5rem;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      border-radius: 10px / 30px;
+      border: none;
+      cursor: pointer;
+      background-color: rgb(13, 172, 119);
+      font-family: "Roboto", sans-serif;
+      font-weight: 600;
+      color: white;
+
+      &:hover {
+        transform: scale(1.5, 1.5);
+        background-color: rgb(21, 235, 163);
+      }
+    }
+  }
 }
 
 .main-section {
   display: flex;
-
-  .container2 {
-    border-left: 2px solid black;;
-
-    .card-drink {
-      display: flex;
-      justify-content: center;
-      width: 20rem;
-      height: 10rem;
-      
-
-      .img-drink {
-        width: 10rem;
-        height: 10rem;
-      }
-    }
-
-    .fav-drink {
-      border: 5px solid green;
-      color:darkgreen;
-    
-    }
-
-    /* #hidden {
-        display: flex;
-        justify-content: center;
-        padding: 2rem 2rem 2rem 2rem;
-        border: 3px solid green;
-        visibility: hidden;
-      } */
-  }
-}
+  justify-content: center;
+  gap: 2rem;
 
 .container1 {
-  margin-right: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 5px solid rgb(6, 109, 66);
+  color: rgb(252, 252, 252);
+  font-family: "Roboto", sans-serif;
 
+  .title-list-api {
+  margin: 2rem;
+
+  }
   .card-drink {
     display: flex;
     justify-content: center;
     width: 20rem;
     height: 10rem;
-    
 
     .img-drink {
       width: 10rem;
       height: 10rem;
     }
   }
+
+  .btn-reset {
+    height: 1.5rem;
+    width: 4rem;
+    margin-top: 2rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-radius: 10px / 30px;
+    border: none;
+    cursor: pointer;
+    background-color: rgb(13, 172, 119);
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    color: white;
+    margin-left: 2rem;
+
+    &:hover {
+      transform: scale(1.5, 1.5);
+      background-color: rgb(21, 235, 163);
+      
+    }
+  }
+}
+
+.container2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 5px solid rgb(6, 109, 66);
+  color: rgb(243, 247, 245);
+  font-family: "Roboto", sans-serif;
+
+  .title-list-fav{
+  margin: 2rem;
+  }
+  .card-drink {
+    display: flex;
+    justify-content: center;
+    width: 20rem;
+    height: 10rem;
+
+    .img-drink {
+      width: 10rem;
+      height: 10rem;
+    }
+  }
+
+  .fav-drink {
+    border: 0.5rem solid rgb(9, 107, 69);
+    color: rgb(9, 107, 69);
+  }
+
+}
 }
