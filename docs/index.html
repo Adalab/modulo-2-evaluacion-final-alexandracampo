@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8" />
@@ -10,29 +10,37 @@
 </head>
 
 <body>
-  <header>
-    <h1 class="header">Buscador de cócteles</h1>
+  <header class="header">
+    <img class="icon-header" src="/assets/images/coctel-color.png">
+    <h1 class="h1-header">Buscador de cócteles</h1>
   </header>
 
   <main>
-    <form>
-      <input type="text" class="js-input">
-      <button class="js-search-btn">Buscar</button>
-      <button class="js-reset-btn">Reset</button>
+    <form class="form">
+      <label class="label-input">Introduce el nombre del cóctel que buscas:</label>
+      <fieldset class="fieldset">
+        <input placeholder="  Margarita" type=" text" class="js-input input-text">
+        <button class="js-search-btn btn-search">Buscar cóctel</button>
+      </fieldset>
     </form>
 
     <section class="main-section">
+
       <div class="container1">
-        <h3>Cócteles favoritos:</h3>
+        <h3 class="title-list-api">Cócteles favoritos:</h3>
         <ul class="js-list-favs"></ul>
+        <button class="js-reset-btn btn-reset">Reset</button>
       </div>
 
       <div class="container2">
-        <h3>Listado obtenido de la API</h3>
+        <h3 class="title-list-fav">Listado obtenido de la API</h3>
         <ul class="js-list">Aquí deben salir los resultados</ul>
       </div>
 
+
     </section>
+
+    <footer></footer>
   </main>
   <script type="text/javascript" src="./assets/js/main.js"></script>
 </body>
