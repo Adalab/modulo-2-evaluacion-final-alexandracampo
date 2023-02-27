@@ -18,7 +18,7 @@ La aplicación de búsqueda de cócteles consta de dos partes:
 
 ## 2. Búsqueda:
 
-- Al hacer clic sobre el botón de Buscar, la aplicación debe conectarse al API abierto de TheCocktailDB (https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita).
+- Al hacer clic sobre el botón de Buscar, la aplicación debe conectarse al API abierto de TheCocktailDB (https://www.thecocktaildb.com/).
 - Por cada cóctel contenido en el resultado de la búsqueda hay que pintar una tarjeta donde mostramos una imagen del cóctel y el nombre.
 
 ## 3. Favoritos:
