@@ -6,6 +6,7 @@ const btnSearch = document.querySelector('.js-search-btn');
 const listResults = document.querySelector('.js-list');
 const listResultsFavs = document.querySelector('.js-list-favs');
 const btnReset = document.querySelector('.js-reset-btn');
+const btnLog = document.querySelector('.js-btn-log');
 
 let dataList = [];
 let dataListFavs = [];
@@ -25,7 +26,9 @@ if (favStored) { //si encuentra favoritos en LS
 }
 
 btnSearch.addEventListener('click', handleClickSearch);
-btnReset.addEventListener('click', handleClickReset)
+btnReset.addEventListener('click', handleClickReset);
+btnLog.addEventListener('click', handleClickLog);
+
 
 //funcion recorre el array dataList y pinta los cócteles:
 function renderList(dataList) {
@@ -78,6 +81,10 @@ function buildDrinkLi(drink) {
     const elementLi = document.createElement('li');
     elementLi.setAttribute('class', 'card-drink');
     elementLi.setAttribute('id', drink.idDrink);
+
+    const elementP = document.createElement('p');
+    elementP.textContent = drink.strCategory;
+    elementLi.appendChild(elementP);
 
     //meto en variables ambas llamadas a las funciones
     const elementH3 = buildDrinkH3(drink.strDrink);
@@ -177,4 +184,13 @@ function handleClickDeleteFav(ev) {
 
     // Vuelvo a renderizar
     renderList(dataList);
+}
+
+function handleClickLog(ev) {
+    ev.preventDefault();
+    for (const drink of dataListFavs) {
+        console.log(drink.strDrink)
+    }
+
+
 }
